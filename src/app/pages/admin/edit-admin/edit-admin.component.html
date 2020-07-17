@@ -1,0 +1,56 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row">
+
+            </div>
+            <!-- Card stats -->
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <form [formGroup]="registerForm" (submit)="editAdmin(form)">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3 ">
+                                <label for="validationServer01">username:</label>
+                                <input type="text" class="form-control is-valid" id="username" name="username" formControlName="username" [ngClass]="{'is-invalid':  f.username.touched  && f.username.errors}" placeholder="Nhập username">
+                                <div class="invalid-feedback" *ngIf="f.username.touched && (f.username.hasError('required')||f.username.hasError('minLength'))">
+                                    <i class="fas fa-info-circle"></i>Email yêu cầu nhập đúng định dạng email. Bắt buộc nhập.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 ">
+                                <label for="validationServer01">password:</label>
+                                <input type="text" class="form-control is-valid" id="password" name="password" formControlName="password" placeholder="Nhập password" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12 mb-6 ">
+                                <label for="validationServer01">Ảnh:</label>
+                                <input type="file" (change)="onFileSelected($event)" multiple name="image" value="{{item.image}}">
+                                <input type="file" hidden="true" class="form-control is-valid" id="username" name="username" formControlName="password">
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 mb-3 ">
+                            <label for="validationServer01">Position:</label>
+                            <input type="text" class="form-control is-valid" id="position" name="position" formControlName="position">
+                        </div>
+                        <button class="btn btn-primary" type="submit">Cập Nhật</button>
+                        <button class="btn btn-light" (click)="cancel()">hủy</button>
+                    </form>
+                    <div class="row" *ngIf="hasError">
+                        <div class="text-danger">{{mss_gs}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,113 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row">
+
+            </div>
+            <!-- Card stats -->
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <form [formGroup]="registerForm" #form="ngForm" (submit)="createBlog(form)">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3 ">
+                                <label for="validationServer01">Tiêu Đề:</label>
+                                <input type="text" class="form-control is-valid" id="title" name="title" formControlName="title" [ngClass]="{ 'is-invalid': f.title.touched   && f.title.errors}" placeholder="Nhập Tên Loại" required>
+                                <div *ngIf="f.title.touched && f.title.errors" class="invalid-feedback">
+                                    <div *ngIf="f.title.errors.required">Tiêu Đề không được phép để trống</div>
+                                    <div *ngIf=" f.title.errors.minlength ">Tiêu Đề phải nhiều hơn 6 ký tự</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-12 mb-6 ">
+                                <label for="validationServer01">Ảnh:</label>
+                                <input type="file" (change)="onFileSelected($event)" multiple name="image" formControlName="image">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12 mb-6 ">
+                                <label for="validationServer01">Miêu tả:</label>
+                                <!-- <input type="text" class="form-control is-valid" id="description" name="description" placeholder="Nhập Tên Loại" ngModel required> -->
+                                <ckeditor id="description" [innerHTML] name="description" formControlName="description" placeholder="Nhập Tên Loại" required [editor]="Editor" (ready)="onReady($event)"></ckeditor>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Thêm Mới</button>
+                    </form>
+                    <div class="row" *ngIf="hasError">
+                        <div class="text-danger">{{mss_ms}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <div class="card-header bg-transparent border-0 ">
+                        <div class="row " *ngIf="search ">
+                            <div class="col ">Kết quả tìm kiếm, tìm thấy {{blog.length}} kết quả</div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead">
+                                <tr>
+                                    <th scope="col">TÊN LOẠI</th>
+
+                                    <th scope="col">HÌNH ẢNH</th>
+
+                                    <th scope="col">MIÊU TẢ</th>
+
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of blog  | paginate: { itemsPerPage: 5, currentPage: p }">
+                                <tr>
+                                    <td (click)="goToPageEdit(item)" style="cursor:pointer">{{item.title}}</td>
+                                    <td>
+                                        <img src="./../../../../assets/img/imgs/{{item.image}}" width="50px" alt="">
+
+                                    </td>
+                                    <td style="width: 300px;
+                                  overflow: hidden;
+                                  text-overflow: ellipsis;
+                                  line-height: 20px;
+                                  -webkit-line-clamp: 3;
+                                  height: 60px;
+                                  display: -webkit-box;
+                                  -webkit-box-orient: vertical;" innerHTML="{{item.description}}">
+                                    </td>
+                                    <td>{{item.createdAt | date:"yyyy-MM-dd hh:mm:ss a"}}</td>
+                                    <td>{{item.updatedAt | date:"yyyy-MM-dd hh:mm:ss a "}}</td>
+                                    <td>
+                                        <p>
+                                            <button (click)="DeleteProduct(item._id)" type="button" class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-trash"></span> Xóa
+                              </button>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row">
+
+            </div>
+            <!-- Card stats -->
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <form [formGroup]="registerForm" (submit)="editBlog(form) ">
+
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label for="validationServer01">Tên Loại:</label>
+                                <input type="text" class="form-control is-valid" id="title" name="title" formControlName="title" [ngClass]="{ 'is-invalid': f.title.touched && f.title.errors}" placeholder="Nhập Tên Loại ">
+                                <div *ngIf="f.title.touched && f.title.errors" class="invalid-feedback">
+                                    <div *ngIf="f.title.errors.required">Tên không được phép để trống</div>
+                                    <div *ngIf=" f.title.errors.minlength">Tên phải nhiều hơn 6 ký tự</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row ">
+                            <div class="col-md-12 mb-6 ">
+                                <label for="validationServer01 ">Ảnh:</label>
+                                <input type="file" (change)="onFileSelected($event)" multiple name="image">
+                                <input type="hidden" class="form-control is-valid" id="imageOld" name="imageOld" formControlName="imageOld" placeholder="Nhập Tên Loại ">
+                            </div>
+                        </div>
+
+                        <div class="form-row ">
+                            <div class="col-md-12 mb-6 ">
+                                <label for="validationServer01 ">Miêu tả: </label>
+                                <!-- <input type="text " class="form-control is-valid " id="description " name="description " placeholder="Nhập Tên Loại " ngModel required> -->
+                                <ckeditor id="description" name="description" data="{{blog.description}}" formControlName="description" placeholder="Nhập Tên Loại" required [editor]="Editor" (ready)="onReady($event)">
+                                </ckeditor>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary " type="submit ">Cập Nhật</button>
+                        <button class="btn btn-light " (click)="cancel() ">hủy</button>
+                    </form>
+                    <div class="row" *ngIf="hasError">
+                        <div class="text-danger">{{mss_ms}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row">
+
+            </div>
+            <!-- Card stats -->
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <form [formGroup]="registerForm" (submit)="editProvider(form)">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3 ">
+                                <label for="validationServer01">username:</label>
+                                <input type="text" class="form-control is-valid" id="username" name="username" formControlName="username" [ngClass]="{ 'is-invalid': f.username.touched  && f.username.errors }" placeholder="Nhập username">
+                                <div class="invalid-feedback" *ngIf="f.password.touched && (f.password.hasError('required')||f.password.hasError('minLength'))">
+                                    <i class="fas fa-info-circle"></i>Email yêu cầu nhập đúng định dạng email. Bắt buộc nhập.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 ">
+                                <label for="validationServer01">password:</label>
+                                <input type="text" class="form-control is-valid" id="password" name="password" formControlName="password" [ngClass]="{ 'is-invalid': f.password.touched  && f.password.errors }" placeholder="Nhập password">
+                                <div class="invalid-feedback" *ngIf="f.password.touched && (f.password.hasError('required')||f.password.hasError('minLength'))">
+                                    <i class=" fas fa-info-circle "></i>Yêu cầu Password phải có ít nhất 9 ký tự!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12 mb-6 ">
+                                <label for="validationServer01">Ảnh:</label>
+                                <input type="file" (change)="onFileSelected($event)" multiple name="image">
+                                <input type="hidden" class="form-control is-valid" id="imageOld" name="imageOld" formControlName="imageOld">
+                            </div>
+                        </div>
+                        <div class="form-row">
+
+                            <div class="col-md-6 mb-3 ">
+                                <label for="validationServer01">Số Điên Thoại:</label>
+                                <input type="text" class="form-control is-valid" id="phoneNumber" disabled=true name="phoneNumber" formControlName="phoneNumber" [ngClass]="{'is-invalid': f.phoneNumber.touched && f.phoneNumber.errors}" placeholder="phân quyền">
+                                <div class="invalid-feedback " *ngIf="f.phoneNumber.touched && (f.phoneNumber.hasError('required')||f.phoneNumber.hasError( 'minLength')) ">
+                                    <i class="fas fa-info-circle "></i>Vui lòng nhập số điện thoại!!
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 ">
+                                <label for="validationServer01">Địa Chỉ:</label>
+                                <input type="text" class="form-control is-valid" id="address" name="address" formControlName="address" [ngClass]="{'is-invalid': f.address.touched && f.address.errors}" placeholder="phân quyền">
+                                <div class="invalid-feedback " *ngIf="f.address.touched && (f.address.hasError('required')||f.address.hasError( 'minLength')) ">
+                                    <i class="fas fa-info-circle "></i>Địa chỉ thuộc kiểu số và chữ,cho phép nhập khoảng trắng và kí tự đặc biệt. Bắt buộc nhập.
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" type="submit">Cập Nhật</button>
+                        <button class="btn btn-light" (click)="cancel()">hủy</button>
+                    </form>
+
+                    <div class="row" *ngIf="hasError">
+                        <div class="text-danger">{{mss_ms}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

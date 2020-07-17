@@ -1,0 +1,93 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row">
+            </div>
+            <!-- Card stats -->
+        </div>
+    </div>
+</div>
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <form #form="ngForm" [formGroup]="registerForm" (submit)="editCate(form)">
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">Khách hàng:</label>
+                            <div class="col-sm-10">
+                                <input type="text" disabled="true" readonly class="form-control-plaintext" value="{{cart.username}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">Email::</label>
+                            <div class="col-sm-10">
+                                <input type="text" disabled="true" readonly class="form-control-plaintext" value="{{cart.email}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">Số Điện Thoại:</label>
+                            <div class="col-sm-10">
+                                <input type="text" disabled="true" readonly class="form-control-plaintext" value="{{cart.phoneNumber}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">Tổng Tiền:</label>
+                            <div class="col-sm-10">
+                                <input type="text" disabled="true" readonly class="form-control-plaintext" value="{{cart.totalPrice}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">Số Lượng Mặt Hàng:</label>
+                            <div class="col-sm-10">
+                                <input type="text" disabled="true" readonly class="form-control-plaintext" value="{{cart.totalQty}}">
+                            </div>
+                        </div>
+                        <div class="container-fluid">
+                            <!-- Table -->
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card shadow">
+                                        <div class="card-header bg-transparent">
+                                            <div class="table-responsive ">
+                                                <table class="table align-items-center table-flush ">
+                                                    <thead class="thead">
+                                                        <tr>
+                                                            <th scope="col"></th>
+                                                            <th scope="col ">mặt hàng</th>
+                                                            <th scope="col ">Số Lượng</th>
+                                                            <th scope="col ">Tổng tiền</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngFor="let item of cart.listCart; let i=index">
+                                                        <tr>
+                                                            <td>{{i}}</td>
+                                                            <td style="cursor:pointer">{{item.title}}</td>
+                                                            <td><input type='text' disabled="true" value="{{item.soluong}}"></td>
+                                                            <td>{{item.totalPriceItem}}</td>
+                                                            <!-- <td>
+                                                                <p>
+                                                                    <button (click)="delete(item._id) " type="button " class="btn btn-default btn-sm ">
+                                            <span class="glyphicon glyphicon-trash "></span>Xóa
+                                          </button>
+                                                                </p>
+                                                            </td> -->
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 
+                        <button class="btn btn-primary" type="submit">Cập nhật</button>
+                        <button class="btn btn-light" (click)="cancel()">hủy</button> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

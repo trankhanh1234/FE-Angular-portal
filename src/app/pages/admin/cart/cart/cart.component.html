@@ -1,0 +1,73 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row">
+
+            </div>
+            <!-- Card stats -->
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container-fluid">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <div class="card-header bg-transparent border-0 ">
+                        <div class="row " *ngIf="search">
+                            <div class="col " style="color: aliceblue;">Kết quả tìm kiếm, tìm thấy {{cart.length}} kết quả!!!</div>
+                        </div>
+                    </div>
+                    <div class="table-responsive ">
+                        <div class="row " *ngIf="search">
+                            <div class="col " style="color: aliceblue;">Kết quả tìm kiếm, tìm thấy {{cart.length}} kết quả!!!</div>
+                        </div>
+                        <table class="table align-items-center table-flush ">
+                            <thead class="thead">
+                                <tr>
+                                    <th scope="col ">Tên</th>
+                                    <th scope="col ">Email</th>
+                                    <th scope="col ">Số Điện Thoại</th>
+                                    <th scope="col ">Địa Chỉ</th>
+                                    <!-- <th scope="col ">Danh Sách Mặt Hàng</th> -->
+                                    <th scope="col ">Số Lượng</th>
+                                    <th scope="col ">Đơn GIá</th>
+                                    <th scope="col ">Trạng Thái</th>
+
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of cart | paginate: { itemsPerPage: 5, currentPage: p }">
+                                <tr>
+                                    <td (click)="goToPageEdit(item._id)" style="cursor:pointer">{{item.username}}</td>
+                                    <td>{{item.email}}</td>
+                                    <td>{{item.phoneNumber}}</td>
+                                    <td>{{item.address}}</td>
+                                    <!-- <td></td> -->
+                                    <!-- <td *ngFor="let i of item.listCart">{{i.title}}
+                                    </td> -->
+                                    <td>{{item.totalQty}}</td>
+                                    <td>{{item.totalPrice}}</td>
+                                    <td>{{checkStatusCart(1,"Thành Công",0,"Chờ Giao", -1, "Thất Bại", item.status)}}</td>
+                                    <td></td>
+                                    <td>
+                                        <p>
+                                            <button (click)="delete(item._id)" type="button " class="btn btn-default btn-sm ">
+                            <span class="glyphicon glyphicon-trash "></span>Xóa
+                          </button>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

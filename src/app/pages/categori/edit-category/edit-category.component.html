@@ -1,0 +1,40 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row">
+
+            </div>
+            <!-- Card stats -->
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <form #form="ngForm" [formGroup]="registerForm" (submit)="editCate(form)">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3 ">
+                                <label for="validationServer01">Tên Loại:</label>
+                                <input type="text" class="form-control is-valid" id="title" name="title" value="{{item.title}}" formControlName="title" [ngClass]="{ 'is-invalid': f.title.touched  && f.title.errors }" placeholder="" required>
+                                <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+                                    <div *ngIf="f.title.errors.required">Titie không được phép để trống</div>
+                                    <div *ngIf=" f.title.errors.minlength ">Titie phải nhiều hơn 6 ký tự</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Cập nhật</button>
+                        <button class="btn btn-light" (click)="cancel()">hủy</button>
+                    </form>
+                    <div class="row" *ngIf="hasError">
+                        <div class="text-danger">{{mss_ms}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

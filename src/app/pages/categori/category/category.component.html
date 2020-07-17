@@ -1,0 +1,84 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row">
+
+            </div>
+            <!-- Card stats -->
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <form [formGroup]="registerForm" #form="ngForm" (submit)="createCate(form)">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3 ">
+                                <label for="validationServer01">Tên Loại:</label>
+                                <input type="text" class="form-control is-valid" id="title" name="title" formControlName="title" [ngClass]="{ 'is-invalid':  f.title.touched   &&  f.title.errors }" placeholder="Nhập Tên Loại" required>
+                                <div *ngIf="f.title.touched && f.title.errors" class="invalid-feedback">
+                                    <div class="fas fa-info-circle" *ngIf="f.title.errors.required">Tên loại không được phép để trống</div>
+                                    <div class="fas fa-info-circle" *ngIf=" f.title.errors.minlength">Tên loại phải nhiều hơn 6 ký tự</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="hasErro">
+                            <div class="text-danger">{{mss}}</div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Thêm Mới</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <div class="card-header bg-transparent border-0 ">
+                        <div class="row " *ngIf="search ">
+                            <div class="col ">Kết quả tìm kiếm, tìm thấy {{categori.length}} kết quả</div>
+                        </div>
+                    </div>
+                    <div class="table-responsive ">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead ">
+                                <tr>
+                                    <th scope="col ">TÊN LOẠI</th>
+                                    <th scope="col ">NGÀY TẠO</th>
+                                    <th scope="col ">NGÀY CẬP NHẬT</th>
+                                    <th scope="col "></th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of categori | paginate: { itemsPerPage: 5, currentPage: p }">
+                                <tr>
+                                    <td (click)="goToPageEdit(item)" style="cursor:pointer">{{item.title}}</td>
+                                    <td>{{item.createdAt | date:"yyyy-MM-dd hh:mm:ss a "}}</td>
+                                    <td>{{item.updatedAt | date:"yyyy-MM-dd hh:mm:ss a "}}</td>
+                                    <td>
+                                        <p>
+                                            <button (click)="DeleteDataCate(item._id) " type="button " class="btn btn-default btn-sm ">
+                                <span class="glyphicon glyphicon-trash "></span>Xóa 
+                              </button>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,147 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row">
+
+            </div>
+            <!-- Card stats -->
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <form [formGroup]="registerForm" #form="ngForm" (submit)="createProduct(form)">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3 ">
+                                <label for="validationServer01">Tên Loại:</label>
+                                <input type="text" class="form-control is-valid" id="title" name="title" formControlName="title" [ngClass]="{ 'is-invalid': f.title.touched   && f.title.errors}" placeholder="Nhập Tên Loại" required>
+                                <div *ngIf="f.title.touched && f.title.errors" class="invalid-feedback">
+                                    <div *ngIf="f.title.errors.required">Titie không được phép để trống</div>
+                                    <div *ngIf=" f.title.errors.minlength ">Titie phải nhiều hơn 6 ký tự</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 ">
+                                <label for="validationServer01">Giá:</label>
+                                <input type="number" class="form-control is-valid" id="price" name="price" formControlName="price" [ngClass]="{ 'is-invalid': f.price.touched  && f.price.errors }" placeholder="Nhập Tên Loại" required>
+                                <div *ngIf="f.price.touched && f.price.errors" class="invalid-feedback">
+                                    <div *ngIf="f.price.errors.required">Vui lòng Nhập Giá</div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-12 mb-6 ">
+                                <label for="validationServer01">Ảnh:</label>
+                                <input type="file" (change)="onFileSelected($event)" multiple name="image" formControlName="image">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3 ">
+                                <label for="validationServer01">số lượng:</label>
+                                <input type="number" class="form-control is-valid" id="quality" name="quality" formControlName="quality" [ngClass]="{ 'is-invalid': f.quality.touched  && f.quality.errors }" placeholder="Nhập Tên Loại" required>
+                                <div *ngIf="f.quality.touched && f.quality.errors" class="invalid-feedback">
+                                    <div *ngIf="f.quality.errors.required">Vui Lòng Nhập Số Lượng</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3 ">
+                                <label for="validationServer01">Loại:</label>
+                                <select class="form-control is-valid" id="" name="idCate" formControlName="idCate" placeholder="Nhập Tên Loại" required>
+                              <option value="" >- - Vui lòng chọn - -</option>
+                              <option *ngFor="let item of categori" [value]="item._id" >{{item.title}}</option>
+                            </select>
+
+
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12 mb-6 ">
+                                <label for="validationServer01">Miêu tả:</label>
+                                <!-- <input type="text" class="form-control is-valid" id="description" name="description" placeholder="Nhập Tên Loại" ngModel required> -->
+                                <ckeditor id="description" [innerHTML] name="description" formControlName="description" placeholder="Nhập Tên Loại" required [editor]="Editor" (ready)="onReady($event)"></ckeditor>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="hasError">
+                            <div class="text-danger">{{mss_gs}}</div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Thêm Mới</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <div class="card-header bg-transparent border-0 ">
+                        <div class="row " *ngIf="search ">
+                            <div class="col ">Kết quả tìm kiếm, tìm thấy {{product.length}} kết quả</div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead">
+                                <tr>
+                                    <th scope="col">TÊN LOẠI</th>
+                                    <th scope="col">GÍA</th>
+                                    <th scope="col">HÌNH ẢNH</th>
+                                    <th scope="col">SỐ LƯỢNG</th>
+                                    <th scope="col">MIÊU TẢ</th>
+                                    <th scope="col">LOẠI</th>
+                                    <th scope="col">NGÀY TẠO</th>
+                                    <th scope="col">NGÀY CẬP NHẬT</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of product  | paginate: { itemsPerPage: 5, currentPage: p }">
+                                <tr>
+                                    <td (click)="goToPageEditProduct(item)" style="cursor:pointer">{{item.title}}</td>
+                                    <td>{{item.price}}</td>
+                                    <td>
+                                        <img src="./../../../../assets/img/imgs/{{item.image}}" width="50px" alt="">
+
+                                    </td>
+                                    <td>{{item.quality}}</td>
+                                    <td style="width: 300px;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    line-height: 20px;
+                                    -webkit-line-clamp: 3;
+                                    height: 60px;
+                                    display: -webkit-box;
+                                    -webkit-box-orient: vertical;" innerHTML="{{item.description}}">
+                                    </td>
+                                    <td>{{item.idCate.title}}</td>
+                                    <td>{{item.createdAt | date:"yyyy-MM-dd hh:mm:ss a"}}</td>
+                                    <td>{{item.updatedAt | date:"yyyy-MM-dd hh:mm:ss a "}}</td>
+                                    <td>
+                                        <p>
+                                            <button (click)="DeleteProduct(item._id)" type="button" class="btn btn-default btn-sm">
+                                  <span class="glyphicon glyphicon-trash"></span> Xóa
+                                </button>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
